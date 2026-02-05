@@ -149,7 +149,7 @@ def cash_Records():
                     filtered_df['DateTime_IST'] = filtered_df['DateTime'].dt.tz_convert('Asia/Kolkata')
                     hourly_sales = (
                                 filtered_df
-                                .groupby(filtered_df['DateTime'].dt.hour)['Total']
+                                .groupby(filtered_df['DateTime_IST'].dt.hour)['Total']
                                 .sum()
                                 )
                     st.bar_chart(hourly_sales, height=400)
@@ -258,6 +258,7 @@ if st.session_state.authenticated:
     app()
 else:
     login()
+
 
 
 
