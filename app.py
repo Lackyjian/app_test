@@ -145,6 +145,8 @@ def cash_Records():
                     st.bar_chart(sales_per_product, x = 'Product', y = 'Amount', height=400,)
                     st.divider()
                     # filtered_df['Datetime'] = pd.to_datetime(filtered_df['Date'].astype(str) + ' ' + filtered_df['Time'].astype(str))
+                    filtered_df['DateTime'] = pd.to_datetime(filtered_df['DateTime'], utc=True)
+                    filtered_df['DateTime_IST'] = filtered_df['DateTime'].dt.tz_convert('Asia/Kolkata')
                     hourly_sales = (
                                 filtered_df
                                 .groupby(filtered_df['DateTime'].dt.hour)['Total']
@@ -256,5 +258,6 @@ if st.session_state.authenticated:
     app()
 else:
     login()
+
 
 
