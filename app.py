@@ -16,8 +16,9 @@ if st.session_state.authenticated and st.session_state.client is not None:
 
     cash_transactions_df = pd.DataFrame(list(cash_transactions_db.find()))
     products = pd.DataFrame(list(products_db.find()))
-    if cash_transactions_df['DateTime'].dtype == 'O':
-        cash_transactions_df['DateTime'] = pd.to_datetime(cash_transactions_df['DateTime'], errors='coerce')
+    if cash_transactions_df.empty == False:
+        if cash_transactions_df['DateTime'].dtype == 'O':
+            cash_transactions_df['DateTime'] = pd.to_datetime(cash_transactions_df['DateTime'], errors='coerce')
 
 def dataframe_from_mongo(data, collection):
     record = data.to_dict(orient='records')
@@ -257,3 +258,4 @@ if st.session_state.authenticated:
     app()
 else:
     login()
+
