@@ -89,9 +89,7 @@ def cash_Records():
                     'Paid_amount': [paid_amount],
                     'Balance': [balance]
                 })
-                df = pd.concat([cash_transactions_df, new_transaction], ignore_index=True)
-                # df.to_csv('cash_transactions.csv', index=False)
-                dataframe_from_mongo(new_transaction, cash_transactions_db)
+                cash_transactions_db.insert_one(new_transaction.to_dict(orient='records')[0])
 
 
     with tab2:
@@ -258,4 +256,5 @@ if st.session_state.authenticated:
     app()
 else:
     login()
+
 
